@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Movie Catalogue</string>
+    <string name="title_activity_detail_movie">DetailMovieActivity</string>
+
+    <string name="todo">TODO</string>
+    <string name="storyboard">Storyboard</string>
+
+    <string name="tvshow_tab">TV Shows</string>
+    <string name="movie_tab">Movies</string>
+</resources>
