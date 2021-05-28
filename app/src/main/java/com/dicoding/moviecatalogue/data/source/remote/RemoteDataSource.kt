@@ -1,6 +1,9 @@
 package com.dicoding.moviecatalogue.data.source.remote
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.dicoding.moviecatalogue.data.source.remote.api.ApiConfig
 import com.dicoding.moviecatalogue.data.source.remote.response.*
 import com.dicoding.moviecatalogue.utils.EspressoIdlingResource
 import retrofit2.Call
@@ -21,14 +24,16 @@ class RemoteDataSource {
             }
     }
 
-    fun getPopularMovies(callback: LoadPopularMoviesCallback) {
+    fun getPopularMovies(): LiveData<ApiResponse<List<MovieResultsItem>>> {
         EspressoIdlingResource.increment()
+
+        val resultMovie = MutableLiveData<ApiResponse<List<MovieResultsItem>>>()
 
         val client = ApiConfig.getApiService().getPopularMovies()
         client.enqueue(object : Callback<MovieResponse>{
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if (response.isSuccessful) {
-                    response.body()?.results?.let { callback.onPopularMoviesReceived(it) }
+                    resultMovie.value = ApiResponse.success(response.body()?.results!!)
                     EspressoIdlingResource.decrement()
                 }
                 else {
@@ -40,16 +45,27 @@ class RemoteDataSource {
                 Log.e(TAG, "onFailure listmovie: ${t.message.toString()}")
             }
         })
-    }
 
-    fun getPopularTvShows(callback: LoadPopularTvShowsCallback) {
+        return resultMovie
+    }
+//
+//    if (response.isSuccessful) {
+//        response.body()?.results?.let {
+//            resultTvShow.value = ApiResponse.success(it)
+//        }
+//        EspressoIdlingResource.decrement()
+//    }
+
+    fun getPopularTvShows(): LiveData<ApiResponse<List<TvShowResultsItem>>> {
         EspressoIdlingResource.increment()
+
+        val resultTvShow = MutableLiveData<ApiResponse<List<TvShowResultsItem>>>()
 
         val client = ApiConfig.getApiService().getPopularTvShows()
         client.enqueue(object : Callback<TvShowResponse>{
             override fun onResponse(call: Call<TvShowResponse>, response: Response<TvShowResponse>) {
                 if (response.isSuccessful) {
-                    response.body()?.results?.let { callback.onPopularTvShowsReceived(it) }
+                    resultTvShow.value = ApiResponse.success(response.body()?.results!!)
                     EspressoIdlingResource.decrement()
                 }
                 else {
@@ -62,10 +78,21 @@ class RemoteDataSource {
             }
 
         })
+
+        return resultTvShow
     }
 
-    fun getMovieDetails(movieId: String, callback: LoadMovieDetailsCallback) {
+//    if (response.isSuccessful) {
+//        response.body()?.let {
+//            resultMovieDetail.value = ApiResponse.success(it)
+//        }
+//        EspressoIdlingResource.decrement()
+//    }
+
+    fun getMovieDetails(movieId: String): LiveData<ApiResponse<DetailMovieResponse>> {
         EspressoIdlingResource.increment()
+
+        val resultMovieDetail= MutableLiveData<ApiResponse<DetailMovieResponse>>()
 
         val client = ApiConfig.getApiService().getMovieDetail(movieId)
         client.enqueue(object : Callback<DetailMovieResponse>{
@@ -74,7 +101,7 @@ class RemoteDataSource {
                 response: Response<DetailMovieResponse>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.let { callback.onMovieDetailsReceived(it) }
+                    resultMovieDetail.value = ApiResponse.success(response.body()!!)
                     EspressoIdlingResource.decrement()
                 }
             }
@@ -83,10 +110,14 @@ class RemoteDataSource {
                 Log.e(TAG, "onFailure moviedetail: ${t.message.toString()}")
             }
         })
+
+        return resultMovieDetail
     }
 
-    fun getTvShowDetails(tvId: String, callback: LoadTvShowDetailsCallback){
+    fun getTvShowDetails(tvId: String): LiveData<ApiResponse<DetailTVResponse>>{
         EspressoIdlingResource.increment()
+
+        val resultTvShowDetail= MutableLiveData<ApiResponse<DetailTVResponse>>()
 
         val client = ApiConfig.getApiService().getTvShowDetail(tvId)
         client.enqueue(object : Callback<DetailTVResponse>{
@@ -95,7 +126,7 @@ class RemoteDataSource {
                 response: Response<DetailTVResponse>
             ) {
                 if (response.isSuccessful) {
-                    response.body()?.let { callback.onTvShowDetailsReceived(it) }
+                    resultTvShowDetail.value = ApiResponse.success(response.body()!!)
                     EspressoIdlingResource.decrement()
                 }
             }
@@ -105,23 +136,7 @@ class RemoteDataSource {
             }
 
         })
+
+        return resultTvShowDetail
     }
-
-    interface LoadPopularMoviesCallback {
-        fun onPopularMoviesReceived(movieResponse: List<MovieResultsItem>)
-    }
-
-    interface LoadPopularTvShowsCallback {
-        fun onPopularTvShowsReceived(tvShowResponse: List<TvShowResultsItem>)
-    }
-
-    interface LoadMovieDetailsCallback {
-        fun onMovieDetailsReceived(movieResponse: DetailMovieResponse)
-    }
-
-    interface LoadTvShowDetailsCallback {
-        fun onTvShowDetailsReceived(tvShowResponse: DetailTVResponse)
-    }
-
-
 }

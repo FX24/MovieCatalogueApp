@@ -3,7 +3,7 @@ package com.dicoding.moviecatalogue.ui.tvshow
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.dicoding.moviecatalogue.data.FilmEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.dicoding.moviecatalogue.data.source.FilmRepository
 import com.dicoding.moviecatalogue.utils.FilmData
 import com.nhaarman.mockitokotlin2.verify
@@ -29,7 +29,7 @@ class TvShowViewModelTest {
     private lateinit var filmRepository: FilmRepository
 
     @Mock
-    private lateinit var observer: Observer<List<FilmEntity>>
+    private lateinit var observer: Observer<List<TvShowEntity>>
 
     @Before
     fun setUp() {
@@ -39,7 +39,7 @@ class TvShowViewModelTest {
     @Test
     fun getTvShow() {
         val dummyTvShows = FilmData.generateTvShows()
-        val tvShows = MutableLiveData<List<FilmEntity>>()
+        val tvShows = MutableLiveData<List<TvShowEntity>>()
         tvShows.value = dummyTvShows
 
         Mockito.`when`(filmRepository.getPopularTvShows()).thenReturn(tvShows)

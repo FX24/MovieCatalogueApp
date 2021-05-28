@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.moviecatalogue.R
-import com.dicoding.moviecatalogue.data.FilmEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.dicoding.moviecatalogue.databinding.ItemsTvshowBinding
 import com.dicoding.moviecatalogue.ui.detail.DetailFilmActivity
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>(){
 
-    private val listTvShows = ArrayList<FilmEntity>()
+    private val listTvShows = ArrayList<TvShowEntity>()
 
-    fun setTvShows(tvshows: List<FilmEntity>?) {
+    fun setTvShows(tvshows: List<TvShowEntity>?) {
         if (tvshows == null) return
         this.listTvShows.clear()
         this.listTvShows.addAll(tvshows)
@@ -36,7 +36,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>(){
     }
 
     class TvShowViewHolder (private val binding: ItemsTvshowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind (tvshow : FilmEntity) {
+        fun bind (tvshow : TvShowEntity) {
             with(binding) {
                 tvTitle.text = tvshow.title
                 tvReleaseDate.text = tvshow.release_date

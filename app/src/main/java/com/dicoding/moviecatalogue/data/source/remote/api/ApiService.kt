@@ -1,4 +1,4 @@
-package com.dicoding.moviecatalogue.data.source.remote
+package com.dicoding.moviecatalogue.data.source.remote.api
 
 import com.dicoding.moviecatalogue.BuildConfig
 import com.dicoding.moviecatalogue.data.source.remote.response.DetailMovieResponse

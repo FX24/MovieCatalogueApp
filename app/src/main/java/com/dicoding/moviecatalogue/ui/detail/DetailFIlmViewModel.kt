@@ -2,7 +2,7 @@ package com.dicoding.moviecatalogue.ui.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.moviecatalogue.data.FilmDetailEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.FilmDetailEntity
 import com.dicoding.moviecatalogue.data.source.FilmRepository
 
 class DetailFilmViewModel(private val filmRepository: FilmRepository) : ViewModel() {

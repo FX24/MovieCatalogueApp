@@ -1,10 +1,9 @@
 package com.dicoding.moviecatalogue.ui.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.dicoding.moviecatalogue.data.FilmDetailEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.FilmDetailEntity
 import com.dicoding.moviecatalogue.data.source.FilmRepository
 import com.dicoding.moviecatalogue.utils.FilmData
 import com.nhaarman.mockitokotlin2.verify

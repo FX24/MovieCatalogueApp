@@ -1,4 +1,4 @@
-package com.dicoding.moviecatalogue.data.source.remote
+package com.dicoding.moviecatalogue.data.source.remote.api
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

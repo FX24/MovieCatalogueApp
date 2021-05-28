@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.moviecatalogue.data.source.FilmRepository
-import com.dicoding.moviecatalogue.data.source.remote.response.MovieResponse
 import com.dicoding.moviecatalogue.injection.Injection
 import com.dicoding.moviecatalogue.ui.detail.DetailFilmViewModel
 import com.dicoding.moviecatalogue.ui.movie.MovieViewModel
 import com.dicoding.moviecatalogue.ui.tvshow.TvShowViewModel
 
-class ViewModelFactory private constructor(private val mFilmRepository: FilmRepository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory private constructor(private val mFilmRepository: FilmRepository) :
+    ViewModelProvider.NewInstanceFactory() {
 
     companion object {
         @Volatile

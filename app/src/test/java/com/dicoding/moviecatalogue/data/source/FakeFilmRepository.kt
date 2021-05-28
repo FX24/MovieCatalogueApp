@@ -2,8 +2,8 @@ package com.dicoding.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dicoding.moviecatalogue.data.FilmDetailEntity
-import com.dicoding.moviecatalogue.data.FilmEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.FilmDetailEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.dicoding.moviecatalogue.data.source.remote.RemoteDataSource
 import com.dicoding.moviecatalogue.data.source.remote.response.DetailMovieResponse
 import com.dicoding.moviecatalogue.data.source.remote.response.DetailTVResponse
@@ -12,15 +12,15 @@ import com.dicoding.moviecatalogue.data.source.remote.response.TvShowResultsItem
 
 class FakeFilmRepository (private val remoteDataSource: RemoteDataSource) : FilmDataSource {
 
-    override fun getPopularMovies(): LiveData<List<FilmEntity>> {
-        val movieResult = MutableLiveData<List<FilmEntity>>()
+    override fun getPopularMovies(): LiveData<List<TvShowEntity>> {
+        val movieResult = MutableLiveData<List<TvShowEntity>>()
 
         remoteDataSource.getPopularMovies(object : RemoteDataSource.LoadPopularMoviesCallback{
 
             override fun onPopularMoviesReceived(movieResponse: List<MovieResultsItem>) {
-                val movieList = ArrayList<FilmEntity>()
+                val movieList = ArrayList<TvShowEntity>()
                 for (response in movieResponse) {
-                    val movie = FilmEntity(
+                    val movie = TvShowEntity(
                         response.id,
                         response.title,
                         response.posterPath,
@@ -34,14 +34,14 @@ class FakeFilmRepository (private val remoteDataSource: RemoteDataSource) : Film
         return movieResult
     }
 
-    override fun getPopularTvShows(): LiveData<List<FilmEntity>> {
-        val tvResult = MutableLiveData<List<FilmEntity>>()
+    override fun getPopularTvShows(): LiveData<List<TvShowEntity>> {
+        val tvResult = MutableLiveData<List<TvShowEntity>>()
 
         remoteDataSource.getPopularTvShows(object : RemoteDataSource.LoadPopularTvShowsCallback{
             override fun onPopularTvShowsReceived(tvShowResponse: List<TvShowResultsItem>) {
-                val tvList = ArrayList<FilmEntity>()
+                val tvList = ArrayList<TvShowEntity>()
                 for (response in tvShowResponse) {
-                    val tv = FilmEntity(
+                    val tv = TvShowEntity(
                         response.id,
                         response.name,
                         response.posterPath,

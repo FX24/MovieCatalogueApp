@@ -1,15 +1,24 @@
 package com.dicoding.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
-import com.dicoding.moviecatalogue.data.FilmDetailEntity
-import com.dicoding.moviecatalogue.data.FilmEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
+import com.dicoding.moviecatalogue.vo.Resource
 
 interface FilmDataSource {
-    fun getPopularMovies() : LiveData<List<FilmEntity>>
+    fun getPopularMovies() : LiveData<Resource<List<MovieEntity>>>
 
-    fun getPopularTvShows() : LiveData<List<FilmEntity>>
+    fun getPopularTvShows() : LiveData<Resource<List<TvShowEntity>>>
 
-    fun getMovieDetails(movieId: String) : LiveData<FilmDetailEntity>
+    fun getMovieDetails(movieId: String) : LiveData<Resource<MovieEntity>>
 
-    fun getTvShowDetails(tvId : String) : LiveData<FilmDetailEntity>
+    fun getTvShowDetails(tvId : String) : LiveData<Resource<TvShowEntity>>
+
+    fun getFavMovies(): LiveData<Resource<List<MovieEntity>>>
+
+    fun getFavTvShows(): LiveData<Resource<List<TvShowEntity>>>
+
+    fun setMovieBookmark(movie: MovieEntity, state: Boolean)
+
+    fun setTvShowBookmark(tvShow: TvShowEntity, state: Boolean)
 }

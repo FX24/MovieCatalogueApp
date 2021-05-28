@@ -1,7 +1,6 @@
 package com.dicoding.moviecatalogue.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -9,13 +8,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.moviecatalogue.R
-import com.dicoding.moviecatalogue.data.FilmDetailEntity
-import com.dicoding.moviecatalogue.data.FilmEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.FilmDetailEntity
 import com.dicoding.moviecatalogue.data.source.remote.response.GenresItem
 import com.dicoding.moviecatalogue.databinding.ActivityDetailFilmBinding
 import com.dicoding.moviecatalogue.databinding.ContentDetailFilmBinding
 import com.dicoding.moviecatalogue.ui.viewmodel.ViewModelFactory
-import java.time.LocalDate
 
 class DetailFilmActivity : AppCompatActivity() {
 
