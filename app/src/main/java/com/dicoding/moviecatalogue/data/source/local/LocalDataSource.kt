@@ -14,9 +14,9 @@ class LocalDataSource private constructor(private val mFilmDao: FilmDao) {
             INSTANCE ?: LocalDataSource(filmDao)
     }
 
-    fun getAllMovies(): LiveData<List<MovieEntity>> = mFilmDao.getFavoriteMovie()
+    fun getAllMovies(): LiveData<List<MovieEntity>> = mFilmDao.getMovie()
 
-    fun getAllTvShows(): LiveData<List<TvShowEntity>> = mFilmDao.getFavoriteTvShow()
+    fun getAllTvShows(): LiveData<List<TvShowEntity>> = mFilmDao.getTvShow()
 
     fun getAllFavoriteMovies(): LiveData<List<MovieEntity>> = mFilmDao.getFavoriteMovie()
 

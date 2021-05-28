@@ -2,17 +2,20 @@ package com.dicoding.moviecatalogue.ui.detail
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.moviecatalogue.R
-import com.dicoding.moviecatalogue.data.source.local.entity.FilmDetailEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.dicoding.moviecatalogue.data.source.remote.response.GenresItem
 import com.dicoding.moviecatalogue.databinding.ActivityDetailFilmBinding
 import com.dicoding.moviecatalogue.databinding.ContentDetailFilmBinding
 import com.dicoding.moviecatalogue.ui.viewmodel.ViewModelFactory
+import com.dicoding.moviecatalogue.vo.Status
 
 class DetailFilmActivity : AppCompatActivity() {
 
@@ -44,62 +47,109 @@ class DetailFilmActivity : AppCompatActivity() {
                 if (movieId != null) {
                     viewModel.setSelectedMovie(movieId)
                     activityDetailBinding.progressBar.visibility = View.VISIBLE
-                    viewModel.getMovieDetails().observe(this, {movieitem ->
-                        activityDetailBinding.progressBar.visibility = View.GONE
-                        populateFilm(movieitem)
+                    viewModel.movies.observe(this, { movieitem ->
+                        if (movieitem != null) {
+                            when (movieitem.status){
+                                Status.LOADING -> activityDetailBinding.progressBar.visibility = View.VISIBLE
+                                Status.SUCCESS -> {
+                                    if (movieitem.data != null) {
+                                        activityDetailBinding.progressBar.visibility = View.GONE
+                                        populateMovie(movieitem.data)
+
+                                    }
+                                }
+                                Status.ERROR -> {
+                                    activityDetailBinding.progressBar.visibility = View.GONE
+                                    Toast.makeText(this, "There's a problem", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
                     })
                 }
-            }
-            else if (intent.hasExtra(EXTRA_TV)){
+            } else if (intent.hasExtra(EXTRA_TV)) {
                 val tvId = extras.getString(EXTRA_TV)
                 if (tvId != null) {
                     viewModel.setSelectedTvShow(tvId)
                     activityDetailBinding.progressBar.visibility = View.VISIBLE
-                    viewModel.getTvShowDetails().observe(this, {tvshowitem ->
-                        activityDetailBinding.progressBar.visibility = View.GONE
-                        populateFilm(tvshowitem)
+                    viewModel.tvShow.observe(this, { tvshowitem ->
+                        if (tvshowitem != null) {
+                            when (tvshowitem.status) {
+                                Status.LOADING -> activityDetailBinding.progressBar.visibility = View.VISIBLE
+                                Status.SUCCESS -> {
+                                    if (tvshowitem.data != null) {
+                                        activityDetailBinding.progressBar.visibility = View.GONE
+                                        populateTvShow(tvshowitem.data)
+                                    }
+                                }
+                                Status.ERROR -> {
+                                    activityDetailBinding.progressBar.visibility = View.GONE
+                                    Toast.makeText(this, "There's a problem", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+
                     })
                 }
             }
         }
     }
 
-    private fun populateFilm(film: FilmDetailEntity) {
+    private fun populateMovie(film: MovieEntity) {
         with(detailContentDetailFilmBinding) {
 
             tvTitle.text = film.title
-            tvGenre.text = getgenre(film.genre)
+            tvGenre.text = film.genre
             tvOverview.text = film.overview
             tvRating.text = film.rating
 
             Glide.with(this@DetailFilmActivity)
-                    .load("https://image.tmdb.org/t/p/original/${film.poster}")
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
-                    .error(R.drawable.ic_error))
-                    .into(imgBigPoster)
+                .load("https://image.tmdb.org/t/p/original/${film.poster}")
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_loading)
+                        .error(R.drawable.ic_error)
+                )
+                .into(imgBigPoster)
 
             Glide.with(this@DetailFilmActivity)
-                    .load("https://image.tmdb.org/t/p/original/${film.poster}")
-                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
-                    .error(R.drawable.ic_error))
-                    .transform(RoundedCorners(20))
-                    .into(imgSmallPoster)
+                .load("https://image.tmdb.org/t/p/original/${film.poster}")
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_loading)
+                        .error(R.drawable.ic_error)
+                )
+                .transform(RoundedCorners(20))
+                .into(imgSmallPoster)
 
-            supportActionBar?.title = "${film.title}"
+            supportActionBar?.title = film.title
         }
-
     }
 
-    private fun getgenre(genres: List<GenresItem>?): String {
-        var genretxt = ""
+    private fun populateTvShow(film: TvShowEntity) {
+        with(detailContentDetailFilmBinding) {
 
-        for (i in genres?.indices!!){
-            if (i == 0) {
-                genretxt = genres?.get(i)?.name
-            } else {
-                genretxt = "$genretxt, ${genres?.get(i)?.name}"
-            }
+            tvTitle.text = film.title
+            tvGenre.text = film.genre
+            tvOverview.text = film.overview
+            tvRating.text = film.rating
+
+            Glide.with(this@DetailFilmActivity)
+                .load("https://image.tmdb.org/t/p/original/${film.poster}")
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_loading)
+                        .error(R.drawable.ic_error)
+                )
+                .into(imgBigPoster)
+
+            Glide.with(this@DetailFilmActivity)
+                .load("https://image.tmdb.org/t/p/original/${film.poster}")
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_loading)
+                        .error(R.drawable.ic_error)
+                )
+                .transform(RoundedCorners(20))
+                .into(imgSmallPoster)
+
+            supportActionBar?.title = film.title
         }
-        return genretxt
+
     }
 }

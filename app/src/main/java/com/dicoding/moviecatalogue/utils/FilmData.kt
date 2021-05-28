@@ -1,6 +1,6 @@
 package com.dicoding.moviecatalogue.utils
 
-import com.dicoding.moviecatalogue.data.source.local.entity.FilmDetailEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
 import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.dicoding.moviecatalogue.data.source.remote.response.*
 
@@ -218,44 +218,9 @@ object FilmData {
         )
         return tvshow
     }
-
-    fun generateMovieDetails(): FilmDetailEntity {
-
-        val movie = FilmDetailEntity(
-            567189,
-            "Tom Clancy's Without Remorse",
-            "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
-            "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
-            "2021-04-29",
-            listOf(
-                GenresItem("Action"),
-                GenresItem("Adventure"),
-                GenresItem("Thriller"),
-                GenresItem("War")
-            ),
-            (7.3).toString()
-        )
-        return movie
-    }
-
-    fun generateTvShowDetails(): FilmDetailEntity {
-
-        val tvshow = FilmDetailEntity(
-            88396,
-            "The Falcon and the Winter Soldier",
-            "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
-            "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
-            "2021-03-19",
-            listOf(
-                GenresItem("Sci-Fi & Fantasy"),
-                GenresItem("Action & Adventure"),
-                GenresItem("Drama"),
-                GenresItem("War & Politics")
-            ),
-            (7.9).toString()
-        )
-        return tvshow
-    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //REMOTE
     fun generateRemoteMovies(): List<MovieResultsItem> {
@@ -265,103 +230,132 @@ object FilmData {
         //1
         movie.add(
             MovieResultsItem(
-            567189,
-            "Tom Clancy's Without Remorse",
-            "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
-            "2021-04-29"
-        )
+                567189,
+                "Tom Clancy's Without Remorse",
+                "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
+                "2021-04-29"
+            )
         )
 
         //2
         movie.add(
             MovieResultsItem(
-            460465,
-            "Mortal Kombat",
-            "/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg",
-            "2021-04-07"
-        )
+                460465,
+                "Mortal Kombat",
+                "/xGuOF1T3WmPsAcQEQJfnG7Ud9f8.jpg",
+                "2021-04-07"
+            )
         )
 
         //3
         movie.add(
             MovieResultsItem(
-            804435,
-            "Vanquish",
-            "/AoWY1gkcNzabh229Icboa1Ff0BM.jpg",
-            "2021-04-16"
-        )
+                804435,
+                "Vanquish",
+                "/AoWY1gkcNzabh229Icboa1Ff0BM.jpg",
+                "2021-04-16"
+            )
         )
 
         //4
         movie.add(
             MovieResultsItem(
-            399566,
-            "Godzilla vs. Kong",
-            "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
-            "2021-03-24"
-        )
+                399566,
+                "Godzilla vs. Kong",
+                "/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg",
+                "2021-03-24"
+            )
         )
 
         //5
         movie.add(
             MovieResultsItem(
-            615678,
-            "Thunder Force",
-            "/duK11VQd4UPDa7UJrgrGx90xJOx.jpg",
-            "2021-04-09"
-        )
+                615678,
+                "Thunder Force",
+                "/duK11VQd4UPDa7UJrgrGx90xJOx.jpg",
+                "2021-04-09"
+            )
         )
 
         //6
         movie.add(
             MovieResultsItem(
-            615457,
-            "Nobody",
-            "/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg",
-            "2021-03-26",
-        )
+                615457,
+                "Nobody",
+                "/oBgWY00bEFeZ9N25wWVyuQddbAo.jpg",
+                "2021-03-26",
+            )
         )
 
         //7
         movie.add(
             MovieResultsItem(
-            793723,
-            "Sentinelle",
-            "/AmUGn1rJ9XDDP6DYn9OA2uV8MIg.jpg",
-            "2021-03-05"
-        )
+                793723,
+                "Sentinelle",
+                "/AmUGn1rJ9XDDP6DYn9OA2uV8MIg.jpg",
+                "2021-03-05"
+            )
         )
 
         //8
         movie.add(
             MovieResultsItem(
-            791373,
-            "Zack Snyder's Justice League",
-            "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg",
-            "2021-03-18",
-        )
+                791373,
+                "Zack Snyder's Justice League",
+                "/tnAuB8q5vv7Ax9UAEje5Xi4BXik.jpg",
+                "2021-03-18",
+            )
         )
 
         //9
         movie.add(
             MovieResultsItem(
-            635302,
-            "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
-            "/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg",
-            "2020-10-16"
-        )
+                635302,
+                "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
+                "/h8Rb9gBr48ODIwYUttZNYeMWeUU.jpg",
+                "2020-10-16"
+            )
         )
 
         //10
         movie.add(
             MovieResultsItem(
-            544401,
-            "Cherry",
-            "/pwDvkDyaHEU9V7cApQhbcSJMG1w.jpg",
-            "2021-02-26"
-        )
+                544401,
+                "Cherry",
+                "/pwDvkDyaHEU9V7cApQhbcSJMG1w.jpg",
+                "2021-02-26"
+            )
         )
         return movie
+    }
+
+    fun generateMovieDetails(): MovieEntity {
+
+        val movie = MovieEntity(
+            567189,
+            "Tom Clancy's Without Remorse",
+            "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
+            "2021-04-29",
+            false,
+            "Action, Adventure, Thriller, War",
+            "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
+            "7.3",
+        )
+        return movie
+    }
+    fun generateTvShowDetails(): TvShowEntity {
+
+        val tvshow = TvShowEntity(
+            88396,
+            "The Falcon and the Winter Soldier",
+            "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
+            "2021-03-19",
+            false,
+            "Sci-fi & Fantasy, Action & Adcenture, Drama, War & Politics",
+            "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
+            (7.9).toString()
+        )
+        return tvshow
     }
 
     fun generateRemoteTvShows() : List<TvShowResultsItem> {

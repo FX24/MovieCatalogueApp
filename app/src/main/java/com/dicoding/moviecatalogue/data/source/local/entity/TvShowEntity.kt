@@ -26,7 +26,7 @@ data class TvShowEntity(
     var favorite: Boolean = false,
 
     @ColumnInfo(name = "genre")
-    val genre: List<GenresItem>? = null,
+    val genre: String = "",
 
     @ColumnInfo(name = "overview")
     val overview: String = "",

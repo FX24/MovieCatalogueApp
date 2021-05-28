@@ -17,7 +17,7 @@ interface FilmDao {
     @Query("SELECT * FROM movieentity WHERE id = :movieId")
     fun getMovieDetailbyId(movieId: String): LiveData<MovieEntity>
 
-    @Query("SELECT * FROM movieentity WHERE id = :tvId")
+    @Query("SELECT * FROM tvshowentity WHERE id = :tvId")
     fun getTvShowDetailbyId(tvId: String): LiveData<TvShowEntity>
 
     @Query("SELECT * FROM movieentity WHERE favorite = 1")

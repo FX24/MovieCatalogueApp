@@ -14,9 +14,9 @@ interface FilmDataSource {
 
     fun getTvShowDetails(tvId : String) : LiveData<Resource<TvShowEntity>>
 
-    fun getFavMovies(): LiveData<Resource<List<MovieEntity>>>
+    fun getFavMovies(): LiveData<List<MovieEntity>>
 
-    fun getFavTvShows(): LiveData<Resource<List<TvShowEntity>>>
+    fun getFavTvShows(): LiveData<List<TvShowEntity>>
 
     fun setMovieBookmark(movie: MovieEntity, state: Boolean)
 

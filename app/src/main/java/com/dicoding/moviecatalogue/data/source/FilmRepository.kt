@@ -7,10 +7,7 @@ import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
 import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.dicoding.moviecatalogue.data.source.remote.ApiResponse
 import com.dicoding.moviecatalogue.data.source.remote.RemoteDataSource
-import com.dicoding.moviecatalogue.data.source.remote.response.DetailMovieResponse
-import com.dicoding.moviecatalogue.data.source.remote.response.DetailTVResponse
-import com.dicoding.moviecatalogue.data.source.remote.response.MovieResultsItem
-import com.dicoding.moviecatalogue.data.source.remote.response.TvShowResultsItem
+import com.dicoding.moviecatalogue.data.source.remote.response.*
 import com.dicoding.moviecatalogue.utils.AppExecutors
 import com.dicoding.moviecatalogue.vo.Resource
 
@@ -80,7 +77,7 @@ class FilmRepository private constructor(
                         response.posterPath,
                         response.releaseDate,
                         (false),
-                        emptyList(),
+                        "",
                         "",
                         ""
                     )
@@ -106,16 +103,16 @@ class FilmRepository private constructor(
             public override fun createCall(): LiveData<ApiResponse<List<TvShowResultsItem>>> =
                 remoteDataSource.getPopularTvShows()
 
-            public override fun saveCallResult(tvShowResponse: List<TvShowResultsItem>) {
+            public override fun saveCallResult(data: List<TvShowResultsItem>) {
                 val tvShowList = ArrayList<TvShowEntity>()
-                for (response in tvShowResponse) {
+                for (response in data) {
                     val tvShow = TvShowEntity(
                         response.id,
                         response.name,
                         response.posterPath,
                         response.firstAirDate,
                         (false),
-                        emptyList(),
+                        "",
                         "",
                         ""
                     )
@@ -132,22 +129,23 @@ class FilmRepository private constructor(
             override fun loadFromDB(): LiveData<MovieEntity> =
                 localDataSource.getMovieWithDetailbyId(movieId)
 
-            override fun shouldFetch(movie: MovieEntity?): Boolean =
-                movie != null && movie.overview == ""
+            override fun shouldFetch(data: MovieEntity?): Boolean =
+                data != null && data.overview == ""
 
             override fun createCall(): LiveData<ApiResponse<DetailMovieResponse>> =
                 remoteDataSource.getMovieDetails(movieId)
 
-            override fun saveCallResult(movieDetailResponse: DetailMovieResponse) {
+            override fun saveCallResult(data: DetailMovieResponse) {
+
                 val movieDetail = MovieEntity(
-                    movieDetailResponse.id,
-                    movieDetailResponse.originalTitle,
-                    movieDetailResponse.posterPath,
-                    movieDetailResponse.releaseDate,
+                    data.id,
+                    data.originalTitle,
+                    data.posterPath,
+                    data.releaseDate,
                     (false),
-                    movieDetailResponse.genres,
-                    movieDetailResponse.overview,
-                    movieDetailResponse.voteAverage.toString()
+                    getgenre(data.genres),
+                    data.overview,
+                    data.voteAverage.toString()
                 )
 
                 localDataSource.updateMovie(movieDetail)
@@ -161,22 +159,23 @@ class FilmRepository private constructor(
             override fun loadFromDB(): LiveData<TvShowEntity> =
                 localDataSource.getTvShowWithDetailbyId(tvId)
 
-            override fun shouldFetch(tvShowDetail: TvShowEntity?): Boolean =
-                tvShowDetail != null && tvShowDetail.overview == ""
+            override fun shouldFetch(data: TvShowEntity?): Boolean =
+                data != null && data.overview == ""
 
             override fun createCall(): LiveData<ApiResponse<DetailTVResponse>> =
                 remoteDataSource.getTvShowDetails(tvId)
 
-            override fun saveCallResult(tvDetailResponse: DetailTVResponse) {
+            override fun saveCallResult(data: DetailTVResponse) {
+
                 val tvDetail = TvShowEntity(
-                    tvDetailResponse.id,
-                    tvDetailResponse.name,
-                    tvDetailResponse.posterPath,
-                    tvDetailResponse.firstAirDate,
+                    data.id,
+                    data.name,
+                    data.posterPath,
+                    data.firstAirDate,
                     (false),
-                    tvDetailResponse.genres,
-                    tvDetailResponse.overview,
-                    tvDetailResponse.voteAverage.toString()
+                    getgenre(data.genres),
+                    data.overview,
+                    data.voteAverage.toString()
                 )
 
                 localDataSource.updateTvShow(tvDetail)
@@ -184,13 +183,13 @@ class FilmRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getFavMovies(): LiveData<Resource<List<MovieEntity>>> {
-        TODO("Not yet implemented")
-    }
+    override fun getFavMovies(): LiveData<List<MovieEntity>> =
+        localDataSource.getAllFavoriteMovies()
 
-    override fun getFavTvShows(): LiveData<Resource<List<TvShowEntity>>> {
-        TODO("Not yet implemented")
-    }
+
+    override fun getFavTvShows(): LiveData<List<TvShowEntity>> =
+        localDataSource.getAllFavoriteTvShows()
+
 
     override fun setMovieBookmark(movie: MovieEntity, state: Boolean) {
         appExecutors.diskIO().execute {
@@ -223,5 +222,16 @@ class FilmRepository private constructor(
 //        })
 //        return movieDetailResult
 //    }
+    private fun getgenre(genres: List<GenresItem>?): String {
+        var genretxt = ""
 
+        for (i in genres?.indices!!) {
+            if (i == 0) {
+                genretxt = genres.get(i).name
+            } else {
+                genretxt = "$genretxt, ${genres.get(i).name}"
+            }
+        }
+        return genretxt
+    }
 }

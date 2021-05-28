@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.moviecatalogue.R
-import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
+import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
 import com.dicoding.moviecatalogue.databinding.ItemsMovieBinding
 import com.dicoding.moviecatalogue.ui.detail.DetailFilmActivity
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private var listMovie = ArrayList<TvShowEntity>()
+    private var listMovie = ArrayList<MovieEntity>()
 
-    fun setMovies(movies: List<TvShowEntity>?) {
+    fun setMovies(movies: List<MovieEntity>?) {
         if (movies == null) return
         this.listMovie.clear()
         this.listMovie.addAll(movies)
@@ -25,7 +25,8 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         parent: ViewGroup,
         viewType: Int
     ): MovieViewHolder {
-        val itemsMovieBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsMovieBinding =
+            ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemsMovieBinding)
     }
 
@@ -38,17 +39,18 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         return listMovie.size
     }
 
-    class MovieViewHolder (private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder (binding.root){
-        fun bind (movie: TvShowEntity) {
+    class MovieViewHolder(private val binding: ItemsMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(movie: MovieEntity) {
             with(binding) {
                 tvTitle.text = movie.title
                 tvReleaseDate.text = movie.release_date
 
                 Glide.with(itemView.context)
-                        .load("https://image.tmdb.org/t/p/original/${movie.poster}")
-                        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
-                        .error(R.drawable.ic_error)
-                        .into(imgPoster)
+                    .load("https://image.tmdb.org/t/p/original/${movie.poster}")
+                    .apply(RequestOptions.placeholderOf(R.drawable.ic_loading))
+                    .error(R.drawable.ic_error)
+                    .into(imgPoster)
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailFilmActivity::class.java)
