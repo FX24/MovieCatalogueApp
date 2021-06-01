@@ -1,6 +1,7 @@
 package com.dicoding.moviecatalogue.data.source.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
@@ -21,10 +22,10 @@ interface FilmDao {
     fun getTvShowDetailbyId(tvId: String): LiveData<TvShowEntity>
 
     @Query("SELECT * FROM movieentity WHERE favorite = 1")
-    fun getFavoriteMovie(): LiveData<List<MovieEntity>>
+    fun getFavoriteMovie(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM tvshowentity WHERE favorite = 1")
-    fun getFavoriteTvShow(): LiveData<List<TvShowEntity>>
+    fun getFavoriteTvShow(): DataSource.Factory<Int, TvShowEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movie: List<MovieEntity>)

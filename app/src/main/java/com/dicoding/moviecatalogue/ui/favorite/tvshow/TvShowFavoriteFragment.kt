@@ -42,8 +42,7 @@ class TvShowFavoriteFragment : Fragment() {
             viewModel.getFavoriteTvShow().observe(viewLifecycleOwner, {tvshow ->
                 if (tvshow != null) {
                     fragmentTvShowFavoriteBinding.progressBar.visibility = View.GONE
-                    adapter.setTvShows(tvshow)
-                    adapter.notifyDataSetChanged()
+                    adapter.submitList(tvshow)
                 }
 
             })

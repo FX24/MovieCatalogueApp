@@ -1,6 +1,9 @@
 package com.dicoding.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.dicoding.moviecatalogue.data.NetworkBoundResource
 import com.dicoding.moviecatalogue.data.source.local.LocalDataSource
 import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
@@ -32,28 +35,6 @@ class FilmRepository private constructor(
                 }
             }
     }
-
-//    override fun getPopularMovies(): LiveData<Resource<List<FilmEntity>>> {
-//        val movieResult = MutableLiveData<List<FilmEntity>>()
-//
-//        remoteDataSource.getPopularMovies(object : RemoteDataSource.LoadPopularMoviesCallback{
-//
-//            override fun onPopularMoviesReceived(movieResponse: List<MovieResultsItem>) {
-//                val movieList = ArrayList<FilmEntity>()
-//                for (response in movieResponse) {
-//                    val movie = FilmEntity(
-//                        response.id,
-//                        response.title,
-//                        response.posterPath,
-//                        response.releaseDate
-//                    )
-//                    movieList.add(movie)
-//                }
-//                movieResult.postValue(movieList)
-//            }
-//        })
-//        return movieResult
-//    }
 
     override fun getPopularMovies(): LiveData<Resource<List<MovieEntity>>> {
         return object :
@@ -88,7 +69,6 @@ class FilmRepository private constructor(
             }
         }.asLiveData()
     }
-
 
     override fun getPopularTvShows(): LiveData<Resource<List<TvShowEntity>>> {
         return object :
@@ -183,13 +163,24 @@ class FilmRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getFavMovies(): LiveData<List<MovieEntity>> =
-        localDataSource.getAllFavoriteMovies()
+    override fun getFavMovies(): LiveData<PagedList<MovieEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getAllFavoriteMovies(),config).build()
+    }
 
 
-    override fun getFavTvShows(): LiveData<List<TvShowEntity>> =
-        localDataSource.getAllFavoriteTvShows()
-
+    override fun getFavTvShows(): LiveData<PagedList<TvShowEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getAllFavoriteTvShows(), config).build()
+    }
 
     override fun setMovieBookmark(movie: MovieEntity, state: Boolean) {
         appExecutors.diskIO().execute {
@@ -203,25 +194,6 @@ class FilmRepository private constructor(
         }
     }
 
-//    override fun getMovieDetails(movieId: String): LiveData<FilmDetailEntity> {
-//        val movieDetailResult = MutableLiveData<FilmDetailEntity>()
-//
-//        remoteDataSource.getMovieDetails(movieId, object : RemoteDataSource.LoadMovieDetailsCallback{
-//            override fun onMovieDetailsReceived(movieResponse: DetailMovieResponse) {
-//                val movieDetail = FilmDetailEntity(
-//                    movieResponse.id,
-//                    movieResponse.originalTitle,
-//                    movieResponse.posterPath,
-//                    movieResponse.overview,
-//                    movieResponse.releaseDate,
-//                    movieResponse.genres,
-//                    movieResponse.voteAverage.toString()
-//                )
-//                movieDetailResult.postValue(movieDetail)
-//            }
-//        })
-//        return movieDetailResult
-//    }
     private fun getgenre(genres: List<GenresItem>?): String {
         var genretxt = ""
 

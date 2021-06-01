@@ -16,5 +16,6 @@ class FavoriteActivity : AppCompatActivity() {
         activityFavoriteBinding.tabs.setupWithViewPager(activityFavoriteBinding.viewPager)
 
         supportActionBar?.elevation = 0f
+        supportActionBar?.title = "Favorite"
     }
 }

@@ -1,6 +1,7 @@
 package com.dicoding.moviecatalogue.ui.favorite.movie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,15 +38,14 @@ class MovieFavoriteFragment : Fragment() {
             viewModel.getfavMovies().observe(viewLifecycleOwner, { movies ->
                 if (movies != null) {
                     fragmentFavoriteMovieBinding.progressBar.visibility = View.GONE
-                    movieFavoriteAdapter.setMovies(movies)
-                    movieFavoriteAdapter.notifyDataSetChanged()
+                    movieFavoriteAdapter.submitList(movies)
                 }
             })
 
             with(fragmentFavoriteMovieBinding.rvMovies) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = movieFavoriteAdapter
+                this.adapter = movieFavoriteAdapter
             }
         }
     }

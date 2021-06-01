@@ -1,6 +1,8 @@
 package com.dicoding.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
+import androidx.paging.PagedList
 import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
 import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.dicoding.moviecatalogue.vo.Resource
@@ -14,9 +16,9 @@ interface FilmDataSource {
 
     fun getTvShowDetails(tvId : String) : LiveData<Resource<TvShowEntity>>
 
-    fun getFavMovies(): LiveData<List<MovieEntity>>
+    fun getFavMovies(): LiveData<PagedList<MovieEntity>>
 
-    fun getFavTvShows(): LiveData<List<TvShowEntity>>
+    fun getFavTvShows(): LiveData<PagedList<TvShowEntity>>
 
     fun setMovieBookmark(movie: MovieEntity, state: Boolean)
 
