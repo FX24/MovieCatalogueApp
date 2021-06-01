@@ -107,18 +107,6 @@ class FilmRepositoryTest {
         assertEquals(tvShowDetailResponse.posterPath, tvShow.data?.poster)
     }
 
-//    fun getPopularMovies() {
-//        val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
-//        `when`(local.getAllMovies()).thenReturn(dataSourceFactory)
-//
-//        filmRepository.getPopularMovies()
-//
-//        val movieEntities = Resource.success(PagedListUtil.mockPagedList(FilmData.generateMovies()))
-//        verify(local).getAllFavoriteMovies()
-//
-//        assertNotNull(movieEntities.data)
-//        assertEquals(movieResponse.size.toLong(), movieEntities.data?.size?.toLong())
-
     @Test
     fun getFavMovies() {
         val dataSourceFactory = mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
