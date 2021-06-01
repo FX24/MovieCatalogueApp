@@ -194,10 +194,10 @@ class FakeFilmRepository(
         var genretxt = ""
 
         for (i in genres?.indices!!) {
-            if (i == 0) {
-                genretxt = genres.get(i).name
+            genretxt = if (i == 0) {
+                genres[i].name
             } else {
-                genretxt = "$genretxt, ${genres.get(i).name}"
+                "$genretxt, ${genres[i].name}"
             }
         }
         return genretxt

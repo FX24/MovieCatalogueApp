@@ -6,14 +6,12 @@ import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.dicoding.moviecatalogue.data.source.FilmRepository
 import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
-import com.dicoding.moviecatalogue.ui.movie.MovieViewModel
-import com.dicoding.moviecatalogue.vo.Resource
 import com.nhaarman.mockitokotlin2.verify
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito

@@ -14,7 +14,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.moviecatalogue.R
 import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
 import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
-import com.dicoding.moviecatalogue.data.source.remote.response.GenresItem
 import com.dicoding.moviecatalogue.databinding.ActivityDetailFilmBinding
 import com.dicoding.moviecatalogue.databinding.ContentDetailFilmBinding
 import com.dicoding.moviecatalogue.ui.viewmodel.ViewModelFactory

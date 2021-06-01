@@ -1,7 +1,6 @@
 package com.dicoding.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.dicoding.moviecatalogue.data.NetworkBoundResource
@@ -210,10 +209,10 @@ class FilmRepository private constructor(
         var genretxt = ""
 
         for (i in genres?.indices!!) {
-            if (i == 0) {
-                genretxt = genres.get(i).name
+            genretxt = if (i == 0) {
+                genres[i].name
             } else {
-                genretxt = "$genretxt, ${genres.get(i).name}"
+                "$genretxt, ${genres[i].name}"
             }
         }
         return genretxt

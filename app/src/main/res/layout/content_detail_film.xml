@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/img_small_poster"
         app:srcCompat="@drawable/gradient"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/poster" />
 
     <ImageView
         android:id="@+id/img_small_poster"
@@ -84,7 +84,7 @@
         app:layout_constraintStart_toStartOf="@+id/tv_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_genre"
         app:srcCompat="@drawable/ic_baseline_star_24"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/poster" />
 
     <TextView
         android:id="@+id/tv_rating"

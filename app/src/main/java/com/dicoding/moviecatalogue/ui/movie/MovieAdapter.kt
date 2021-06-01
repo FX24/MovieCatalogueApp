@@ -1,7 +1,6 @@
 package com.dicoding.moviecatalogue.ui.movie
 
 import android.content.Intent
-import android.graphics.Movie
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter

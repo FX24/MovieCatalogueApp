@@ -13,12 +13,11 @@ import com.dicoding.moviecatalogue.utils.FilmData
 import com.dicoding.moviecatalogue.utils.LiveDataTestUtil
 import com.dicoding.moviecatalogue.utils.PagedListUtil
 import com.dicoding.moviecatalogue.vo.Resource
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 
@@ -139,10 +138,10 @@ class FilmRepositoryTest {
         var genretxt = ""
 
         for (i in genres?.indices!!) {
-            if (i == 0) {
-                genretxt = genres.get(i).name
+            genretxt = if (i == 0) {
+                genres[i].name
             } else {
-                genretxt = "$genretxt, ${genres.get(i).name}"
+                "$genretxt, ${genres[i].name}"
             }
         }
         return genretxt

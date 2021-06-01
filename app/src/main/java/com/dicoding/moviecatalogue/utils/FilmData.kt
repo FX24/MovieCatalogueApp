@@ -221,7 +221,7 @@ object FilmData {
 
     fun generateMovieDetails(): MovieEntity {
 
-        val movie = MovieEntity(
+        return MovieEntity(
             567189,
             "Tom Clancy's Without Remorse",
             "/rEm96ib0sPiZBADNKBHKBv5bve9.jpg",
@@ -231,12 +231,11 @@ object FilmData {
             "An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.",
             "7.3",
         )
-        return movie
     }
 
     fun generateTvShowDetails(): TvShowEntity {
 
-        val tvshow = TvShowEntity(
+        return TvShowEntity(
             88396,
             "The Falcon and the Winter Soldier",
             "/6kbAMLteGO8yyewYau6bJ683sw7.jpg",
@@ -246,7 +245,6 @@ object FilmData {
             "Following the events of “Avengers: Endgame”, the Falcon, Sam Wilson and the Winter Soldier, Bucky Barnes team up in a global adventure that tests their abilities, and their patience.",
             (7.9).toString()
         )
-        return tvshow
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////

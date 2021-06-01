@@ -1,11 +1,9 @@
 package com.dicoding.moviecatalogue.data.source.local.entity
 
 import androidx.annotation.NonNull
-import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.dicoding.moviecatalogue.data.source.remote.response.GenresItem
 
 @Entity(tableName = "movieentity")
 data class MovieEntity(
