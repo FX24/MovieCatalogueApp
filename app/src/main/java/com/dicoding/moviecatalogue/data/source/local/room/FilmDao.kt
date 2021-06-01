@@ -10,10 +10,10 @@ import com.dicoding.moviecatalogue.data.source.local.entity.MovieEntity
 interface FilmDao {
 
     @Query("SELECT * FROM  movieentity")
-    fun getMovie(): LiveData<List<MovieEntity>>
+    fun getMovie(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM  tvshowentity")
-    fun getTvShow(): LiveData<List<TvShowEntity>>
+    fun getTvShow(): DataSource.Factory<Int, TvShowEntity>
 
     @Query("SELECT * FROM movieentity WHERE id = :movieId")
     fun getMovieDetailbyId(movieId: String): LiveData<MovieEntity>

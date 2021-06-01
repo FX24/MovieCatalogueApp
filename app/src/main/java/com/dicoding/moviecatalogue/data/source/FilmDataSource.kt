@@ -8,9 +8,9 @@ import com.dicoding.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.dicoding.moviecatalogue.vo.Resource
 
 interface FilmDataSource {
-    fun getPopularMovies() : LiveData<Resource<List<MovieEntity>>>
+    fun getPopularMovies() : LiveData<Resource<PagedList<MovieEntity>>>
 
-    fun getPopularTvShows() : LiveData<Resource<List<TvShowEntity>>>
+    fun getPopularTvShows() : LiveData<Resource<PagedList<TvShowEntity>>>
 
     fun getMovieDetails(movieId: String) : LiveData<Resource<MovieEntity>>
 
@@ -20,7 +20,7 @@ interface FilmDataSource {
 
     fun getFavTvShows(): LiveData<PagedList<TvShowEntity>>
 
-    fun setMovieBookmark(movie: MovieEntity, state: Boolean)
+    fun setMovieFavorite(movie: MovieEntity, state: Boolean)
 
-    fun setTvShowBookmark(tvShow: TvShowEntity, state: Boolean)
+    fun setTvShowFavorite(tvShow: TvShowEntity, state: Boolean)
 }

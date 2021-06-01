@@ -35,7 +35,7 @@ class DetailFilmViewModel(private val filmRepository: FilmRepository) : ViewMode
             val movies = movieResource.data
             if (movies != null) {
                 val newState = !movies.favorite
-                filmRepository.setMovieBookmark(movies, newState)
+                filmRepository.setMovieFavorite(movies, newState)
             }
         }
     }
@@ -46,7 +46,7 @@ class DetailFilmViewModel(private val filmRepository: FilmRepository) : ViewMode
             val tvShows = tvShowResource.data
             if (tvShows != null) {
                 val newState = !tvShows.favorite
-                filmRepository.setTvShowBookmark(tvShows, newState)
+                filmRepository.setTvShowFavorite(tvShows, newState)
             }
         }
     }
